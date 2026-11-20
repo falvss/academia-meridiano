@@ -1,0 +1,1 @@
+<?php require __DIR__.'/../app/bootstrap.php'; startPage('Curitiba em 2125'); require __DIR__.'/../app/futuro.html'; endPage();

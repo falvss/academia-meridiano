@@ -1,0 +1,1 @@
+<?php require __DIR__.'/../app/bootstrap.php'; startPage('Segunda Guerra Mundial'); require __DIR__.'/../app/guerra.html'; endPage();

@@ -1,0 +1,1 @@
+<?php require __DIR__.'/../app/bootstrap.php'; startPage('Início'); require __DIR__.'/../app/index.html'; endPage();

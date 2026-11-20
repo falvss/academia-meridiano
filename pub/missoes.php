@@ -1,0 +1,1 @@
+<?php require __DIR__.'/../app/bootstrap.php'; startPage('Missões'); require __DIR__.'/../app/missoes.html'; endPage();

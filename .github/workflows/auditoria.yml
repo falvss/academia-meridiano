@@ -1,0 +1,40 @@
+name: Auditoria PHP e MySQL
+on: [push, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    env:
+      MYSQL_PWD: teste-local
+      DB_PASSWORD: teste-local
+      TEST_ADMIN: acesso-local-descartavel
+    services:
+      mysql:
+        image: mysql:8.4
+        env:
+          MYSQL_ROOT_PASSWORD: teste-local
+          MYSQL_ROOT_HOST: '%'
+        ports: ['3306:3306']
+        options: --health-cmd="mysqladmin ping -h localhost" --health-interval=5s --health-timeout=5s --health-retries=25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: pdo_mysql
+      - name: Preparar banco e iniciar portal
+        run: |
+          find app pub tools -name '*.php' -exec php -l {} \; | tee lint.txt
+          ! grep -q 'Errors parsing' lint.txt
+          mysql -h127.0.0.1 -uroot < sql/banco.sql
+          export ADMIN_HASH="$(php -r 'echo password_hash(getenv("TEST_ADMIN"), PASSWORD_DEFAULT);')"
+          php -S 127.0.0.1:8000 -t pub > /tmp/meridiano-php.log 2>&1 &
+          for i in {1..20}; do curl -fsS http://127.0.0.1:8000/ >/dev/null && break; sleep 1; done
+          python3 tests/integracao.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: evidencias-php-mysql
+          path: resultado-ci/
+          if-no-files-found: warn

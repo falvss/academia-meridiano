@@ -1,0 +1,1 @@
+<footer><strong>Academia Meridiano</strong><span>Observatório da Torre · Curitiba</span><a href="edital.pdf">Edital de ingresso ↓</a></footer></body></html>
