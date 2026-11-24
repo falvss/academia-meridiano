@@ -14,3 +14,38 @@ if(panel){
  function tick(){const p=Object.fromEntries(clock.formatToParts(new Date()).map(part=>[part.type,part.value]));[months[Number(p.month)-1],p.day,p.year,p.hour,p.minute,p.second].forEach((v,i)=>{if(live[i].textContent!==v)live[i].textContent=v;});}
  tick();setInterval(tick,1000);
 }
+
+const exam = document.querySelector('.admission');
+if (exam) {
+  const questions = exam.querySelectorAll('fieldset');
+  const count = document.getElementById('exam-count');
+  function updateCount() {
+    const answered = exam.querySelectorAll('input[type="radio"]:checked').length;
+    count.textContent = answered + ' de ' + questions.length + ' respondidas';
+  }
+  exam.addEventListener('change', updateCount);
+  updateCount();
+}
+
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const film = document.querySelector('video[autoplay]');
+if (film && reducedMotion.matches) film.pause();
+reducedMotion.addEventListener('change', event => {
+  if (event.matches && film) film.pause();
+});
+
+if ('IntersectionObserver' in window && !reducedMotion.matches) {
+  const observer = new IntersectionObserver(entries => {
+    for (const entry of entries) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('enter-frame');
+        observer.unobserve(entry.target);
+      }
+    }
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.field-photo, .mcard, .split, .candidate').forEach(el => observer.observe(el));
+}
+
+for (const link of document.querySelectorAll('header nav a')) {
+  if (new URL(link.href).pathname === location.pathname) link.setAttribute('aria-current', 'page');
+}
