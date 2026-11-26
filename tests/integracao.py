@@ -28,7 +28,8 @@ answers=dict(q0=0,q1=1,q2=2,q3=1,q4=0,q5=2,q6=1,q7=0)
 body=post('vestibular.php',dict(nome=name,email=mail,interesse='brasil',**answers))
 assert 'Convocado para o TAF' in body
 evidence('01-inscricao',body,'8\t8',sql(f"SELECT nota,JSON_LENGTH(respostas) FROM inscricoes WHERE email='{mail}'"))
-post('secretaria.php',{'senha':os.environ['TEST_ADMIN']})
+login = post('secretaria.php', {'email': 'auditoria@example.test', 'senha': os.environ['TEST_ADMIN']})
+assert 'dashboard.php' in login, 'Login administrativo não confirmado'
 route='registro.php?tipo=turmas'
 record=dict(nome=name,missao='comum',ano='2027')
 body=post(route,record); ident=sql(f"SELECT id FROM turmas WHERE nome='{name}'"); assert ident.isdigit()

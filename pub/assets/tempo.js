@@ -15,37 +15,43 @@ if(panel){
  tick();setInterval(tick,1000);
 }
 
+const menuToggle=document.querySelector('.menu-toggle');
+const mainNav=document.getElementById('main-nav');
+if(menuToggle && mainNav){
+ menuToggle.addEventListener('click',()=>{const open=menuToggle.getAttribute('aria-expanded')==='true';menuToggle.setAttribute('aria-expanded',String(!open));mainNav.classList.toggle('is-open',!open);});
+ mainNav.addEventListener('click',event=>{if(event.target.matches('a')){menuToggle.setAttribute('aria-expanded','false');mainNav.classList.remove('is-open');}});
+}
+
+const missionGrid=document.getElementById('mission-grid');
+const missionFilter=document.getElementById('mission-filter');
+const emptyState=document.getElementById('mission-empty');
+let activeEra='all';
+function filterMissions(){
+ if(!missionGrid)return;
+ const query=(missionFilter?.value||'').trim().toLocaleLowerCase('pt-BR');
+ let visible=0;
+ missionGrid.querySelectorAll('.mcard').forEach(card=>{const matchesEra=activeEra==='all'||card.dataset.era===activeEra;const matchesText=!query||card.textContent.toLocaleLowerCase('pt-BR').includes(query);const show=matchesEra&&matchesText;card.hidden=!show;if(show)visible++;});
+ if(emptyState)emptyState.hidden=visible!==0;
+}
+if(missionGrid){
+ document.querySelectorAll('[data-filter]').forEach(button=>button.addEventListener('click',()=>{activeEra=button.dataset.filter;document.querySelectorAll('[data-filter]').forEach(item=>item.classList.toggle('is-active',item===button));filterMissions();}));
+ missionFilter?.addEventListener('input',filterMissions);
+}
+
 const exam = document.querySelector('.admission');
 if (exam) {
-  const questions = exam.querySelectorAll('fieldset');
-  const count = document.getElementById('exam-count');
-  function updateCount() {
-    const answered = exam.querySelectorAll('input[type="radio"]:checked').length;
-    count.textContent = answered + ' de ' + questions.length + ' respondidas';
-  }
-  exam.addEventListener('change', updateCount);
-  updateCount();
+ const questions = exam.querySelectorAll('fieldset');
+ const count = document.getElementById('exam-count');
+ function updateCount() { const answered = exam.querySelectorAll('input[type="radio"]:checked').length; if(count) count.textContent = answered + ' de ' + questions.length + ' respondidas'; }
+ exam.addEventListener('change', updateCount); updateCount();
 }
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const film = document.querySelector('video[autoplay]');
 if (film && reducedMotion.matches) film.pause();
-reducedMotion.addEventListener('change', event => {
-  if (event.matches && film) film.pause();
-});
-
+reducedMotion.addEventListener('change', event => { if (event.matches && film) film.pause(); });
 if ('IntersectionObserver' in window && !reducedMotion.matches) {
-  const observer = new IntersectionObserver(entries => {
-    for (const entry of entries) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('enter-frame');
-        observer.unobserve(entry.target);
-      }
-    }
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.field-photo, .mcard, .split, .candidate').forEach(el => observer.observe(el));
+ const observer = new IntersectionObserver(entries => { for (const entry of entries) { if (entry.isIntersecting) { entry.target.classList.add('enter-frame'); observer.unobserve(entry.target); } } }, { threshold: 0.08 });
+ document.querySelectorAll('.field-photo, .mcard, .split, .candidate, .trust-strip, .next-step').forEach(el => observer.observe(el));
 }
-
-for (const link of document.querySelectorAll('header nav a')) {
-  if (new URL(link.href).pathname === location.pathname) link.setAttribute('aria-current', 'page');
-}
+for (const link of document.querySelectorAll('header nav a')) { if (new URL(link.href).pathname === location.pathname) link.setAttribute('aria-current', 'page'); }

@@ -1,1 +1,1 @@
-<footer><strong>Academia Meridiano</strong><span>Observatório da Torre · Curitiba</span><a href="edital.pdf">Edital de ingresso ↓</a></footer></body></html>
+<footer><div><strong>Academia Meridiano</strong><span>Observatório da Torre · Curitiba</span></div><div class="footer-links"><span class="status"><i></i> Circuitos estáveis</span><a href="edital.pdf">Edital de ingresso ↓</a><a href="#conteudo" class="back-top">Voltar ao topo ↑</a></div></footer></body></html>
