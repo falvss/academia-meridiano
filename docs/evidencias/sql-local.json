@@ -1,0 +1,92 @@
+{
+  "ambiente": "SQLite 3.53.1",
+  "escopo": "Comandos e integridade relacional em banco efêmero. Sem servidor PHP, sem PDO e sem MySQL.",
+  "resultados": [
+    {
+      "teste": "T1 Cadastro de turma",
+      "acao": "INSERT INTO turmas(nome,missao,ano) VALUES(:nome,:missao,:ano)",
+      "esperado": [
+        [
+          "Aurora de auditoria",
+          2027
+        ]
+      ],
+      "obtido": [
+        [
+          "Aurora de auditoria",
+          2027
+        ]
+      ]
+    },
+    {
+      "teste": "T2 Cadastro de cadete",
+      "acao": "INSERT INTO cadetes(nome,email,turma_id,ano_formacao,especialidade) VALUES(:nome,:email,:turma_id,:ano_formacao,:especialidade)",
+      "esperado": [
+        [
+          "Lia Teste",
+          "Aurora de auditoria"
+        ]
+      ],
+      "obtido": [
+        [
+          "Lia Teste",
+          "Aurora de auditoria"
+        ]
+      ]
+    },
+    {
+      "teste": "T3 Edição",
+      "acao": "UPDATE cadetes SET nome=:nome,email=:email,ano_formacao=:ano_formacao,especialidade=:especialidade,turma_id=:turma_id WHERE id=:id",
+      "esperado": [
+        [
+          "Lia Revisada"
+        ]
+      ],
+      "obtido": [
+        [
+          "Lia Revisada"
+        ]
+      ]
+    },
+    {
+      "teste": "T4 Pesquisa com filtro e paginação",
+      "acao": "SELECT nome FROM turmas WHERE nome LIKE :q AND missao=:missao ORDER BY nome ASC,id LIMIT :lim OFFSET :off",
+      "esperado": [
+        [
+          "Primeiro ano · Aurora"
+        ]
+      ],
+      "obtido": [
+        [
+          "Primeiro ano · Aurora"
+        ]
+      ]
+    },
+    {
+      "teste": "T5 Cadastro inválido: turma inexistente",
+      "acao": "INSERT INTO cadetes(nome,email,turma_id,ano_formacao,especialidade) VALUES(:nome,:email,:turma_id,:ano_formacao,:especialidade)",
+      "esperado": [
+        "FOREIGN KEY constraint failed",
+        0
+      ],
+      "obtido": [
+        "FOREIGN KEY constraint failed",
+        0
+      ]
+    },
+    {
+      "teste": "T6 Exclusão confirmada na camada SQL",
+      "acao": "DELETE FROM cadetes WHERE id=:id",
+      "esperado": [
+        [
+          0
+        ]
+      ],
+      "obtido": [
+        [
+          0
+        ]
+      ]
+    }
+  ]
+}
