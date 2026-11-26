@@ -1,5 +1,0 @@
-USE academia_meridiano;
-ALTER TABLE cadetes ADD ano_formacao TINYINT UNSIGNED NULL, ADD especialidade VARCHAR(70) NULL;
-ALTER TABLE inscricoes ADD edicao SMALLINT UNSIGNED NOT NULL DEFAULT 1, ADD gerais TINYINT UNSIGNED NULL, ADD especificos TINYINT UNSIGNED NULL, ADD corrida_m SMALLINT UNSIGNED NULL, ADD percurso_s SMALLINT UNSIGNED NULL, ADD avaliador VARCHAR(100) NULL, ADD data_taf DATE NULL;
-ALTER TABLE inscricoes ALTER COLUMN edicao SET DEFAULT 2;
-ALTER TABLE inscricoes DROP INDEX email, ADD UNIQUE KEY email_edicao(email,edicao);

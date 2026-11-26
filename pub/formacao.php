@@ -1,1 +1,0 @@
-<?php require __DIR__.'/../app/bootstrap.php'; startPage('Formação'); require __DIR__.'/../app/formacao.html'; endPage();
