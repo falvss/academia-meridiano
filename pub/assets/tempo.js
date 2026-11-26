@@ -15,13 +15,6 @@ if(panel){
  tick();setInterval(tick,1000);
 }
 
-const menuToggle=document.querySelector('.menu-toggle');
-const mainNav=document.getElementById('main-nav');
-if(menuToggle && mainNav){
- menuToggle.addEventListener('click',()=>{const open=menuToggle.getAttribute('aria-expanded')==='true';menuToggle.setAttribute('aria-expanded',String(!open));mainNav.classList.toggle('is-open',!open);});
- mainNav.addEventListener('click',event=>{if(event.target.matches('a')){menuToggle.setAttribute('aria-expanded','false');mainNav.classList.remove('is-open');}});
-}
-
 const missionGrid=document.getElementById('mission-grid');
 const missionFilter=document.getElementById('mission-filter');
 const emptyState=document.getElementById('mission-empty');

@@ -4,7 +4,7 @@
 A Academia Meridiano reúne a seleção de agentes e o registro das turmas de estudo. A secretaria precisa saber quem pertence a cada turma, sua missão e seu ano letivo. A preferência informada no vestibular orienta a triagem. O cadastro administrativo do cadete ocorre após habilitação e matrícula.
 
 ## Áreas
-Portal institucional com relógio atualizado a cada segundo no horário de Brasília, fundador, formação física e acadêmica e quatro itinerários de missão. As páginas são públicas. A secretaria autenticada gerencia turmas e cadetes. O ingresso corrige oito questões e emite protocolo e nota.
+Portal institucional com relógio atualizado a cada segundo no horário de Brasília, fundador, formação física e acadêmica e quatro itinerários de missão. As páginas são públicas. A secretaria de acesso público gerencia turmas e cadetes. O ingresso corrige oito questões e emite protocolo e nota.
 
 ## Organização
 | Arquivos | Responsabilidade |
@@ -31,7 +31,7 @@ O navegador envia formulários POST. O PHP verifica sessão e token CSRF, tamanh
 
 A manutenção carrega o registro por ID e preenche o formulário. A atualização executa UPDATE; o cadastro executa INSERT. A exclusão pede confirmação explícita e só aceita POST. O banco impede excluir uma turma ocupada. A consulta usa SELECT, busca por LIKE, filtro de missão, ordenação e LIMIT/OFFSET. Os links de página preservam os filtros.
 
-No vestibular, o servidor calcula a nota com base nas oito respostas recebidas, grava a inscrição e redireciona para o comprovante na sessão. O Edital 02/2027 exige cinco acertos e dois por bloco para convocação. A habilitação à matrícula depende das duas marcas presenciais. O hash administrativo é verificado com password_verify. A autenticação renova o ID de sessão. No servidor web, expor somente pub/.
+No vestibular, o servidor calcula a nota com base nas oito respostas recebidas, grava a inscrição e redireciona para o comprovante na sessão. O Edital 02/2027 exige cinco acertos e dois por bloco para convocação. A habilitação à matrícula depende das duas marcas presenciais. A entrada pública renova o ID da sessão. As operações POST exigem o token CSRF dessa sessão. No servidor web, expor somente pub/.
 
 ## Identidade e pesquisa
 Marfim de papel, verde-petróleo dos instrumentos e cobre dos pêndulos compõem a identidade. O monograma orbital e os retratos ilustram o memorial. As referências de leitura constam nas páginas de missão. Fotos da academia produzidas para o portal.

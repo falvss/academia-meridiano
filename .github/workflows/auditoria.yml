@@ -8,7 +8,6 @@ jobs:
     env:
       MYSQL_PWD: teste-local
       DB_PASSWORD: teste-local
-      TEST_ADMIN: acesso-local-descartavel
     services:
       mysql:
         image: mysql:8.4
@@ -28,12 +27,6 @@ jobs:
           find app pub tools -name '*.php' -exec php -l {} \; | tee lint.txt
           ! grep -q 'Errors parsing' lint.txt
           mysql -h127.0.0.1 -uroot < sql/banco.sql
-          php <<'PHP'
-          <?php
-          $db = new PDO('mysql:host=127.0.0.1;dbname=academia_meridiano', 'root', getenv('DB_PASSWORD'));
-          $stmt = $db->prepare('INSERT INTO admin_users (nome,email,senha_hash) VALUES (?,?,?)');
-          $stmt->execute(['Auditoria', 'auditoria@example.test', password_hash(getenv('TEST_ADMIN'), PASSWORD_DEFAULT)]);
-          PHP
           php -S 127.0.0.1:8000 -t pub > /tmp/meridiano-php.log 2>&1 &
           for i in {1..20}; do curl -fsS http://127.0.0.1:8000/ >/dev/null && break; sleep 1; done
           python3 tests/integracao.py

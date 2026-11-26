@@ -25,16 +25,8 @@ function go($url): never { header('Location: '.$url,true,303); exit; }
 function fail($message,$status=400): never { http_response_code($status); require __DIR__.'/header.php'; echo '<main class="page"><h1>Atendimento</h1><p>'.h($message).'</p><a href="index.php">Voltar ao início</a></main>'; require __DIR__.'/footer.php'; exit; }
 if ($_SERVER['REQUEST_METHOD']==='POST' && !hash_equals(token(),field($_POST,'token'))) fail('Sua sessão expirou. Reabra a página e tente novamente.',403);
 set_exception_handler(function(Throwable $error) { error_log($error->getMessage()); fail('Serviço indisponível. Confira a conexão e a importação do banco conforme o README.',503); });
-function admin(): bool { return adminUser() !== null; }
+function admin(): bool { return !empty($_SESSION['secretaria_aberta']); }
 function staff(): void { if (!admin()) go('secretaria.php'); }
-function adminUser(): ?array {
-    if (empty($_SESSION['admin_user_id'])) return null;
-    static $user;
-    if ($user !== null) return $user;
-    $user = query('SELECT id,nome,email,ativo FROM admin_users WHERE id=:id AND ativo=1',['id'=>(int)$_SESSION['admin_user_id']])->fetch() ?: null;
-    if (!$user) { unset($_SESSION['admin_user_id'],$_SESSION['admin']); return null; }
-    return $user;
-}
 function goodText($s,$max): bool { return $s!=='' && preg_match('//u',$s)===1 && preg_match_all('/./us',$s)<=$max; }
 function startPage($title): void { require __DIR__.'/header.php'; }
 function endPage(): void { require __DIR__.'/footer.php'; }

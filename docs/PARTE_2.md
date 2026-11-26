@@ -12,7 +12,7 @@ O portal apresenta a instituição e seleciona agentes para o Corpo Básico. A p
 | app/config.example.php, bootstrap.php | Configuração local ou por ambiente, sessão, PDO, tokens, autorização e escape. |
 | pub/vestibular.php, app/prova.php | Recebem a inscrição, validam oito respostas, calculam os dois subtotais e salvam uma cópia da correção. |
 | app/selecao.php, pub/taf.php | Aplicam os critérios de habilitação e registram as marcas presenciais. |
-| pub/secretaria.php, usuarios.php, dashboard.php | Login por e-mail e senha, criação de contas e painel acadêmico. As contas administrativas são independentes das inscrições e dos cadetes. |
+| pub/secretaria.php, usuarios.php, dashboard.php | Entrada pública com sessão, redirecionamento da antiga tela de contas e painel acadêmico. As contas administrativas são independentes das inscrições e dos cadetes. |
 | pub/gestao.php, registro.php, app/catalogo.php | Consulta paginada e manutenção de turmas e cadetes, com listas permitidas de entidades, missões e especialidades. |
 
 ```mermaid

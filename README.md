@@ -10,7 +10,7 @@ No Observatório da Torre, em Curitiba, cada turma investiga uma época sob a me
 
 O candidato escolhe uma missão e responde a oito questões de conhecimentos gerais e específicos. O sistema corrige a prova, guarda as respostas no MySQL e emite um comprovante com protocolo. A convocação para o teste de aptidão física exige cinco acertos no total e pelo menos dois em cada bloco. A Secretaria registra as marcas do TAF e acompanha a situação do candidato.
 
-Na área administrativa, cada usuário entra com e-mail e senha. O painel apresenta os dados acadêmicos, enquanto os cadastros de turmas e cadetes permitem inclusão, consulta, edição e exclusão. A busca por parte do nome, o filtro por missão e a ordenação permanecem ativos durante a paginação. Uma turma com cadetes vinculados tem sua exclusão bloqueada.
+A entrada na Secretaria é pública e abre uma sessão com um clique. O painel apresenta os dados acadêmicos, enquanto os cadastros de turmas e cadetes permitem inclusão, consulta, edição e exclusão. A busca por parte do nome, o filtro por missão e a ordenação permanecem ativos durante a paginação. Uma turma com cadetes vinculados tem sua exclusão bloqueada.
 
 ## Implementação
 
