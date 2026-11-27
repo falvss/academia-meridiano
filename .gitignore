@@ -1,5 +1,1 @@
-/app/config.php
-.env
-.env.*
-/resultado-ci/
-__pycache__/
+app/config.php
