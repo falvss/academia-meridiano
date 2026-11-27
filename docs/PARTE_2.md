@@ -12,7 +12,7 @@ O portal apresenta a instituição e seleciona agentes para o Corpo Básico. A p
 | app/config.example.php, bootstrap.php | Configuração local ou por ambiente, sessão, PDO, tokens, autorização e escape. |
 | pub/vestibular.php, app/prova.php | Recebem a inscrição, validam oito respostas, calculam os dois subtotais e salvam uma cópia da correção. |
 | app/selecao.php, pub/taf.php | Aplicam os critérios de habilitação e registram as marcas presenciais. |
-| pub/secretaria.php | Entrada da secretaria, sem senha, por botão com token CSRF. |
+| pub/secretaria.php, usuarios.php, dashboard.php | Entrada pública com sessão, redirecionamento da antiga tela de contas e painel acadêmico. As contas administrativas são independentes das inscrições e dos cadetes. |
 | pub/gestao.php, registro.php, app/catalogo.php | Consulta paginada e manutenção de turmas e cadetes, com listas permitidas de entidades, missões e especialidades. |
 
 ```mermaid
@@ -50,6 +50,12 @@ erDiagram
         varchar email UK
         int turma_id FK
     }
+    ADMIN_USERS {
+        int id PK
+        varchar email UK
+        varchar senha_hash
+        tinyint ativo
+    }
     INSCRICOES {
         int id PK
         varchar email
@@ -62,6 +68,12 @@ Uma turma recebe zero ou vários cadetes. Cada cadete tem exatamente uma turma. 
 
 | Tabela | Campo | Tipo MySQL | Significado e restrição |
 |---|---|---|---|
+| admin_users | id | INT UNSIGNED | PK automática da conta. |
+| admin_users | nome | VARCHAR(100) | Nome exibido na Secretaria. |
+| admin_users | email | VARCHAR(160) | Identificador único de login. |
+| admin_users | senha_hash | VARCHAR(255) | Hash verificado no login. |
+| admin_users | ativo | TINYINT(1) | Conta habilitada quando vale 1. |
+| admin_users | criado | TIMESTAMP | Data de criação da conta. |
 | turmas | id | INT UNSIGNED | PK automática. |
 | turmas | nome | VARCHAR(100) | Nome obrigatório e único. |
 | turmas | missao | ENUM | comum, galileia, brasil, guerra ou futuro. |
