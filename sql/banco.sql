@@ -14,16 +14,6 @@ CREATE TABLE inscricoes (
  edicao SMALLINT UNSIGNED NOT NULL DEFAULT 2, gerais TINYINT UNSIGNED NULL, especificos TINYINT UNSIGNED NULL, corrida_m SMALLINT UNSIGNED NULL, percurso_s SMALLINT UNSIGNED NULL, avaliador VARCHAR(100) NULL, data_taf DATE NULL,
  interesse VARCHAR(20) NOT NULL, nota TINYINT UNSIGNED NOT NULL, respostas JSON NULL, criado TIMESTAMP DEFAULT CURRENT_TIMESTAMP, UNIQUE KEY email_edicao(email,edicao)
 ) ENGINE=InnoDB;
-CREATE TABLE admin_users (
- id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
- nome VARCHAR(100) NOT NULL,
- email VARCHAR(160) NOT NULL UNIQUE,
- senha_hash VARCHAR(255) NOT NULL,
- ativo TINYINT(1) NOT NULL DEFAULT 1,
- criado TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB;
-INSERT INTO admin_users(nome,email,senha_hash,ativo) VALUES
-('Secretaria Demo','secretaria@meridiano.test','$2y$12$RbuMWCXp671KPQf/kPU95uc0lOATqtkULzzgtQ2fEiOLuMuG8GDQ2',1);
 INSERT INTO turmas(nome,missao,ano) VALUES
 ('Primeiro ano · Aurora','comum',2027),('Primeiro ano · Zênite','comum',2027),
 ('Cátedra de Nazaré','galileia',2027),('Caminhos do Sul','brasil',2027),

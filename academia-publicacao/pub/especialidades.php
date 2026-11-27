@@ -1,0 +1,1 @@
+<?php require __DIR__.'/../app/bootstrap.php'; startPage('Especialidades'); require __DIR__.'/../app/especialidades.html'; endPage();

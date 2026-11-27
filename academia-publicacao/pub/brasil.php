@@ -1,0 +1,1 @@
+<?php require __DIR__.'/../app/bootstrap.php'; startPage('Brasil Colônia'); require __DIR__.'/../app/brasil.html'; endPage();
